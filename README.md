@@ -1,1 +1,1 @@
-# Learned Image Compression
+# Learned Image Compression (Implementation of a research paper)
