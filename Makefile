@@ -19,7 +19,6 @@ requirements:
 	
 
 
-
 ## Delete all compiled Python files
 .PHONY: clean
 clean:
@@ -41,9 +40,6 @@ format:
 	black src
 
 
-
-
-
 ## Set up Python interpreter environment
 .PHONY: create_environment
 create_environment:
@@ -57,11 +53,35 @@ create_environment:
 # PROJECT RULES                                                                 #
 #################################################################################
 
-
-## Make dataset
+## Process the raw dataset
 .PHONY: data
 data: requirements
-	$(PYTHON_INTERPRETER) src/dataset.py
+	$(PYTHON_INTERPRETER) -m src.dataset
+
+## Generate features from processed data
+.PHONY: features
+features: data
+	$(PYTHON_INTERPRETER) -m src.features
+
+## Create visualization plots
+.PHONY: plots
+plots: data
+	$(PYTHON_INTERPRETER) -m src.plots
+
+## Train the compression model
+.PHONY: train
+train: features
+	$(PYTHON_INTERPRETER) -m src.modeling.train
+
+## Run model predictions
+.PHONY: predict
+predict: train
+	$(PYTHON_INTERPRETER) -m src.modeling.predict
+
+## Run complete pipeline
+.PHONY: pipeline
+pipeline: data features plots train predict
+	@echo "Full pipeline completed successfully"
 
 
 #################################################################################
