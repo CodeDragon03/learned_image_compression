@@ -22,8 +22,7 @@ requirements:
 ## Delete all compiled Python files
 .PHONY: clean
 clean:
-	find . -type f -name "*.py[co]" -delete
-	find . -type d -name "__pycache__" -delete
+	powershell -Command "Get-ChildItem -Path . -Recurse -Include *.pyc,*.pyo,__pycache__ | Remove-Item -Recurse -Force"
 
 
 ## Lint using flake8, black, and isort (use `make format` to do formatting)
@@ -47,8 +46,6 @@ create_environment:
 	@echo ">>> New pipenv created. Activate with:\npipenv shell"
 	
 
-
-
 #################################################################################
 # PROJECT RULES                                                                 #
 #################################################################################
@@ -58,11 +55,6 @@ create_environment:
 data: requirements
 	$(PYTHON_INTERPRETER) -m src.dataset
 
-## Generate features from processed data
-.PHONY: features
-features: data
-	$(PYTHON_INTERPRETER) -m src.features
-
 ## Create visualization plots
 .PHONY: plots
 plots: data
@@ -70,7 +62,7 @@ plots: data
 
 ## Train the compression model
 .PHONY: train
-train: features
+train:
 	$(PYTHON_INTERPRETER) -m src.modeling.train
 
 ## Run model predictions
@@ -80,7 +72,7 @@ predict: train
 
 ## Run complete pipeline
 .PHONY: pipeline
-pipeline: data features plots train predict
+pipeline: data plots train predict
 	@echo "Full pipeline completed successfully"
 
 
