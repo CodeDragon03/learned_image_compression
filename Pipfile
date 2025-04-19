@@ -22,6 +22,7 @@ typer = "*"
 src = {file = ".", editable = true}
 
 [dev-packages]
+ipykernel = "*"
 
 [requires]
 python_version = "3.12"
