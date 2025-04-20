@@ -27,14 +27,10 @@ def main(
         if f.lower().endswith((".png", ".jpg"))
     ]
     logger.info(f"The total number of images are: {len(images)}.")
-    logger.info("-" * 50)
-    logger.info("The shape of the images in the Kodak dataset are:")
-    logger.info("-" * 50)
+    
+    logger.info(f"The images are located in: {DATA_PATH}.")
+    logger.info(f"The processed images will be saved in: {PROCESSED_DATA_PATH}.")
 
-    # Print input image shapes
-    for img in tqdm(images, desc="Reading input image shapes", unit="image"):
-        arr = np.array(Image.open(os.path.join(DATA_PATH, img)))
-        logger.info(f"{img}: {arr.shape}")
 
     # Create processed data directory
     os.makedirs(PROCESSED_DATA_PATH, exist_ok=True)
@@ -51,14 +47,6 @@ def main(
         )
         im.save(os.path.join(PROCESSED_DATA_PATH, img))
 
-    logger.info("-" * 50)
-    logger.info("The shape of the images in the processed dataset are:")
-    logger.info("-" * 50)
-
-    # Print processed image shapes
-    for img in tqdm(images, desc="Reading processed image shapes", unit="image"):
-        arr = np.array(Image.open(os.path.join(PROCESSED_DATA_PATH, img)))
-        logger.info(f"{img}: {arr.shape}")
 
 if __name__ == "__main__":
     app()
