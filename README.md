@@ -2,7 +2,7 @@
 
 ---
 
-## **Project Title:**
+## **Project Title**
 
     Learned Image Compression Using Discretized Gaussian Mixture Likelihoods and Attention Modules
 
