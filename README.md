@@ -14,7 +14,7 @@ Implemented a deep **learning-based image** compression system using **discretiz
 
 ## **Citation**
 
-Please cite the following paper if you use this work:
+Please cite the following papers if you use this work:
 
 ```bibtex
 @inproceedings{cheng2020image,
